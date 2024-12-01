@@ -5,7 +5,8 @@ DIR						=	src/
 TEST_DIR				=	tests/
 
 SRC						=	ft_strlen.s \
-							ft_strcpy.s
+							ft_strcpy.s \
+							ft_strcmp.s
 
 TEST_SRC				=	test.c
 

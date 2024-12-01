@@ -1,7 +1,10 @@
 global ft_strlen
 
-loop_end:
-    ret
+ft_strlen:
+    mov rcx, rdi
+    mov rax, 0
+
+    jmp loop_start
 
 loop_start:
     mov sil, byte [rcx + rax]
@@ -11,8 +14,5 @@ loop_start:
     inc rax
     jmp loop_start
 
-ft_strlen:
-    mov rcx, rdi
-    mov rax, 0
-
-    jmp loop_start
+loop_end:
+    ret

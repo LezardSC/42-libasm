@@ -4,7 +4,8 @@ BUILD_DIR				=	build/
 DIR						=	src/
 TEST_DIR				=	tests/
 
-SRC						=	ft_strlen.s
+SRC						=	ft_strlen.s \
+							ft_strcpy.s
 
 TEST_SRC				=	test.c
 

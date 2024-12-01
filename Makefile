@@ -1,47 +1,57 @@
-.PHONY:					all $(NAME) clear mkbuild clear clean fclean re
+NAME					= libasm.a
 
-NAME					= libasm
-
-BUILD_DIR				= build/
-		
+BUILD_DIR				=	build/
 DIR						=	src/
-SRC						=	main.s \
-							ft_strlen.s
+TEST_DIR				=	tests/
 
-OBJECTS					= $(SRC:%.s=$(BUILD_DIR)%.o)
+SRC						=	ft_strlen.s
+
+TEST_SRC				=	test.c
+
+TEST_EXEC				=	test_program
+
+CC						=	gcc
+CFLAGS					=	-Wall -Wextra -Werror
+
+
+OBJECTS					= $(patsubst %.s, $(BUILD_DIR)%.o, $(SRC))
 
 ASM						= nasm
-ASMFLAGS				= -f macho64
+ASMFLAGS				= -f elf64
 
 RM						= rm -rf
 CLEAR					= clear
 
-$(BUILD_DIR)%.o:		$(DIR)%.s $(HEADER_DIR)* Makefile
-						@mkdir -p $(@D)
+$(BUILD_DIR)%.o :		$(DIR)%.s Makefile
+						@mkdir -p $(shell dirname $@)
 						$(ASM) $(ASMFLAGS) $< -o $@
 
 
-all:					 clear mkbuild $(HEADER_DIR) $(NAME) 
-						
-mkbuild:
-						@mkdir -p build $(NAME)
+.PHONY: all
+all: clear
+	$(MAKE) $(NAME) 
 
-init:
-						@mkdir -p $(DIR)
-						@touch $(DIR)main.s
-
+.PHONY: clear
 clear:
 						$(CLEAR)
 						
 $(NAME):				 $(OBJECTS)
-						$(ASM) $(OBJECTS) -o $(NAME)
-						
+						rm -rf $(NAME)
+						ar rcs $(NAME) $(OBJECTS)
+
+.PHONY: clean
 clean:					
 						@${RM} $(BUILD_DIR)
 
+.PHONY: fclean
 fclean:					clean
 						@${RM} ${NAME}
-						@${RM} $(BUILD_DIR)
+						@$(RM) $(TEST_EXEC)
 
-re:						fclean all
+.PHONY: re
+re:						fclean
 						$(MAKE) all
+
+.PHONY: test
+test: 					$(NAME)
+						$(CC) $(CFLAGS) -o $(TEST_EXEC) $(TEST_DIR)$(TEST_SRC) $(NAME)

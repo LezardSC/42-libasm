@@ -1,0 +1,69 @@
+Instructions
+
+    Data movement: mov, lea
+    Arithmetic: add, sub, mul, div
+    Logic: and, or, xor, not
+    Control flow: jmp, cmp, je, jne
+
+    je
+        if ==
+
+    jne
+        if !=
+    
+    jge
+        if <
+
+    cmp
+        compare
+
+    mov
+        Purpose:
+            Copies data from one location to another.
+        Syntaxe:
+            mov destination, source
+        Example:
+            `mov rax, rbx` copies the value in register
+            `rbx` into register `rax`.
+        Explanation:
+            `mov` stands for "move", but it's actually a
+            copy operation.
+            It doesn't alter the source; it just copies its
+            value to the destination.
+
+    xor
+        Purpose:
+            Performs a bitwise exclusive OR operation
+            between two operands.
+        Syntaxe:
+            xor destination, source
+        Example:
+            `xor rdi, rdi` sets the register `rdi` to zero.
+        Explanation:
+            Bitwise XOR compares each bit of two numbers:
+                - If the bits are different, the result is 1.
+                - If the bits are the same, the result is 0.
+            `xor rdi, rdi`:
+                - XOR rdi with itself.
+                - Since every bits is the same, the result in
+                each bit position is 0.
+                - This is a quick way to set rdi to zero. 
+
+Registers
+    Passing Arguments to a Function
+    The first six arguments are passed in specific registers:
+        rdi: First argument
+        rsi: Second argument
+        rdx: Third argument
+        rcx: Fourth argument
+        r8: Fifth argument
+        r9: Sixth argument
+    Additional arguments (if any) are pushed onto the stack.
+    
+    rax
+        Used for system call numbers and return value.
+        Can be changed by a function.
+
+Compilation
+    nasm -f macho64 hello_world.s -o hello_world.o
+    -f to chose the format. elf64 to be sure it's 64 bits. 

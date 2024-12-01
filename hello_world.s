@@ -1,23 +1,22 @@
 bits 64
 
 section .data
-	message db 'Hello World!', 10
+	msg db "Hello World!", 0xA ; Message with newline
+	len equ $ - msg
 
 section .text
-	global _start
+	global _start ; Program's entry point to the linker
+	
 	_start:
-		; write
-		mov rax, 0x2000004 ; calling write. Linux = mov rax, 1
-		mov rdi, 1 ; stdout
-		lea rsi, [rel message]	;linux =  mov rsi, message ; message
-		mov rdx, 12+1 ; message length
-		syscall
+		; System call: write(stdout, msg, len)
+		mov rax, 1 ;System call number for write
+		mov rdi, 1 ; File descriptor (stdout)
+		mov rsi, msg ; Message to write
+		mov rdx, len ; Message length
+		syscall ; Make the system call
 
-		; exit
-		mov rax, 0x2000001	; linux = mov rax, 60 ; exit
-		xor rdi, rdi	; linux = mov rdi, 0 ; no args
-		syscall
 
-; compilation:
-; nasm -f macho64 hello_world.s -o hello_world.o
-; -f to chose the format. macho64 to be sure it's 64 bits. 
+		; System call: exit (status)
+		mov rax, 60 ; System call number for exit
+		xor rdi, rdi ; Exit status 0
+		syscall ; Make the system call

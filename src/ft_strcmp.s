@@ -19,10 +19,10 @@ loop_start:
     jmp loop_start
 
 loop_end:
-    sub r8b, r9b
+    movzx rax, r8b
+    movzx rdx, r9b
+    sub rax, rdx
     ret
-
-
 
 ; int	ft_strcmp(const char *s1, const char *s2)
 ; {

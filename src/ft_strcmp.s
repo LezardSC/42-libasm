@@ -1,30 +1,25 @@
 global ft_strcmp
 
 ft_strcmp:
-    mov rax, rdi
-
-    cmp rdi, 0
-    je if_null
-    cmp rsi, 0
-    je if_null
-
     jmp loop_start
 
 ; rdi first, rsi second
 loop_start:
-    mov r8b, byte [rsi]
-    cmp r8b, 0
+    mov r8b, byte [rdi] ; current char of arg1
+    mov r9b, byte [rsi] ; current char of arg2
+    
+    cmp r8b, 0 ; while *arg1 != null
     je loop_end
 
+    cmp r8b, r9b ; compare char
+    jne loop_end ; if different exit the loop
 
-    mov r9, [rsi]
-    mov [rdi], r9
     inc rdi
     inc rsi
     jmp loop_start
 
 loop_end:
-    mov [rdi], r8b
+    sub r8b, r9b
     ret
 
 

@@ -1,5 +1,6 @@
 global ft_strcmp
 
+section .text
 ft_strcmp:
     jmp loop_start
 

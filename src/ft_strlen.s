@@ -1,5 +1,6 @@
 global ft_strlen
 
+section .text
 ft_strlen:
     mov rcx, rdi
     mov rax, 0

@@ -6,17 +6,23 @@ TEST_DIR				=	tests/
 
 SRC						=	ft_strlen.s \
 							ft_strcpy.s \
-							ft_strcmp.s
+							ft_strcmp.s \
+							ft_write.s \
 
-TEST_SRC				=	test.c
+TEST_SRC				=	test.c \
+							test_strcmp.c \
+							test_strlen.c \
+							test_strcpy.c \
+							test_write.c \
 
-TEST_EXEC				=	test_program
+TEST_EXEC				=	test
 
 CC						=	gcc
 CFLAGS					=	-Wall -Wextra -Werror
 
 
 OBJECTS					= $(patsubst %.s, $(BUILD_DIR)%.o, $(SRC))
+TEST_OBJECTS 			= $(patsubst %.c, $(BUILD_DIR)%.o, $(TEST_SRC))
 
 ASM						= nasm
 ASMFLAGS				= -f elf64
@@ -28,6 +34,9 @@ $(BUILD_DIR)%.o :		$(DIR)%.s Makefile
 						@mkdir -p $(shell dirname $@)
 						$(ASM) $(ASMFLAGS) $< -o $@
 
+$(BUILD_DIR)%.o :		$(TEST_DIR)%.c
+						@mkdir -p $(shell dirname $@)
+						$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: all
 all: clear
@@ -55,5 +64,5 @@ re:						fclean
 						$(MAKE) all
 
 .PHONY: test
-test: 					$(NAME)
-						$(CC) $(CFLAGS) -o $(TEST_EXEC) $(TEST_DIR)$(TEST_SRC) $(NAME)
+test: 					$(NAME) $(TEST_OBJECTS)
+						$(CC) $(CFLAGS) -o $(TEST_EXEC) $(TEST_OBJECTS) $(NAME)

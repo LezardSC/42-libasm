@@ -41,8 +41,6 @@ void test_write() {
             all_pass = 0;
             printf("\033[1;31mFAIL\033[0m: ft_write(fd=%d, buf=\"%s\", count=%lu)\n",
                    fd, buf ? buf : "NULL", count);
-            printf("      ft_write: result=%ld, errno=%d\n", ft_result, ft_errno);
-            printf("       write: result=%ld, errno=%d\n", std_result, std_errno);
         }
     }
 

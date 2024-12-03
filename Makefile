@@ -8,12 +8,14 @@ SRC						=	ft_strlen.s \
 							ft_strcpy.s \
 							ft_strcmp.s \
 							ft_write.s \
+							ft_read.s \
 
 TEST_SRC				=	test.c \
 							test_strcmp.c \
 							test_strlen.c \
 							test_strcpy.c \
 							test_write.c \
+							test_read.c \
 
 TEST_EXEC				=	test
 

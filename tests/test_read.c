@@ -12,10 +12,10 @@ void test_read() {
         size_t count;
         const char *desc;
     } test_cases[] = {
-        {0, 10, "Read 10 bytes from stdin"},
+        {open("test_file.txt", O_RDONLY), 10, "Read 10 bytes from file"},
         {open("test_file.txt", O_RDONLY), 5, "Read 5 bytes from file"},
         {open("test_file.txt", O_RDONLY), 0, "Read 0 bytes from file"},
-        {-1, 10, "Invalid FD"},                       // Invalid FD
+        {-1, 10, "Invalid FD"},
         {open("test_file.txt", O_RDONLY), 100, "Read beyond file size"}
     };
 
@@ -29,16 +29,25 @@ void test_read() {
         int fd = test_cases[i].fd;
         size_t count = test_cases[i].count;
 
+        if (fd >= 0) {
+            lseek(fd, 0, SEEK_SET);
+        }
+
         errno = 0;
         ssize_t ft_result = ft_read(fd, ft_buf, count);
         int ft_errno = errno;
+
+        if (fd >= 0) {
+            lseek(fd, 0, SEEK_SET);
+        }
 
         errno = 0;
         ssize_t std_result = read(fd, std_buf, count);
         int std_errno = errno;
 
-        if (ft_result == std_result && ft_errno == std_errno && 
+        if (ft_result == std_result && ft_errno == std_errno &&
             (ft_result > 0 ? memcmp(ft_buf, std_buf, ft_result) == 0 : 1)) {
+            if (fd >= 3) close(fd);
             continue;
         } else {
             all_pass = 0;
@@ -49,8 +58,7 @@ void test_read() {
                    std_result, std_errno, (int)std_result, std_buf);
         }
 
-        if (fd >= 3)
-            close(fd);
+        if (fd >= 3) close(fd);
     }
 
     if (all_pass) {

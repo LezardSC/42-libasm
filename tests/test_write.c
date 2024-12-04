@@ -2,21 +2,28 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
+#include <fcntl.h>
 
 extern ssize_t ft_write(int fd, const void *buf, size_t count);
 
 void test_write() {
+    int temp_fd = open("test_file.txt", O_WRONLY | O_APPEND);
+    if (temp_fd == -1) {
+        perror("Error opening temp file for write test");
+        return;
+    }
+
     struct {
         int fd;
         const char *buf;
         size_t count;
     } test_cases[] = {
-        {1, "Hello, world!\n", 14},
-        {1, "Short\n", 6},
-        {1, "", 0},
-        {2, "Error output\n", 13},
+        {temp_fd, "Hello, world!\n", 14},
+        {temp_fd, "Short\n", 6},
+        {temp_fd, "", 0},
+        {temp_fd, "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111\n", 101},
         {-1, "Invalid FD\n", 11},
-        {1, NULL, 5},
+        {temp_fd, NULL, 5},
     };
 
     size_t num_tests = sizeof(test_cases) / sizeof(test_cases[0]);
@@ -47,4 +54,6 @@ void test_write() {
     if (all_pass) {
         printf("\033[1;32mPASS: All ft_write tests passed!\033[0m\n");
     }
+
+    close(temp_fd);
 }

@@ -1,6 +1,7 @@
+#include "libft_add_ons.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
 
 static bool     is_space(char c);
 static bool     is_base_valid(char *base, size_t len_base);
@@ -15,7 +16,7 @@ int ft_atoi_base(char *str, char *base) {
 		return (0);
 	}
 
-	size_t len_base = strlen(base);
+	size_t len_base = ft_strlen(base);
 	int sign = get_sign(str);
 
 	if (!is_base_valid(base, len_base)) {

@@ -50,7 +50,6 @@ void test_atoi_base() {
         int expected = test_cases[i].expected;
 
         int result = ft_atoi_base(str, base);
-
         if (result == expected) {
             continue;
         } else {

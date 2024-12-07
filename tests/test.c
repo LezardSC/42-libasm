@@ -10,6 +10,7 @@ extern void test_strcmp();
 extern void test_write();
 extern void test_read();
 extern void test_strdup();
+extern void test_atoi_base();
 
 void create_test_file() {
     int fd = open("test_file.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -38,6 +39,7 @@ int main() {
     test_write();
     test_read();
     test_strdup();
+    test_atoi_base();
     delete_test_file();
     return 0;
 }

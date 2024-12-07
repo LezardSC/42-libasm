@@ -10,48 +10,33 @@ ft_strdup:
 	push rdi
 	call ft_strlen
 	inc rax
+	mov rdi, rax
 	call malloc wrt ..plt
 	cmp rax, 0
 	je .malloc_error
-	mov rdi, rax
 	pop rsi
+	mov rdi, rax
 	call ft_strcpy
 	ret
 
+
 .malloc_error:
-	pop rdi
 	ret
 
-; global ft_strcpy
+; char	*ft_strdup(const char *src)
+; {
+; 	int		i;
+; 	char	*dest;
 
-; section .text
-; ft_strcpy:
-;     mov rax, rdi
-
-;     cmp rdi, 0
-;     je if_null
-;     cmp rsi, 0
-;     je if_null
-
-;     jmp loop_start
-
-; ; rdi first, rsi second
-; loop_start:
-;     mov r8b, byte [rsi]
-;     cmp r8b, 0
-;     je loop_end
-
-
-;     mov r9, [rsi]
-;     mov [rdi], r9
-;     inc rdi
-;     inc rsi
-;     jmp loop_start
-
-; loop_end:
-;     mov [rdi], r8b
-;     ret
-
-; if_null:
-;     mov rax, 0
-;     ret
+; 	i = 0;
+; 	dest = (char *)malloc(sizeof(char) * (ft_strlen(((char *)src)) + 1));
+; 	if (dest == NULL)
+; 		return (NULL);
+; 	while (src[i])
+; 	{
+; 		dest[i] = src[i];
+; 		i++;
+; 	}
+; 	dest[i] = '\0';
+; 	return (((char *)dest));
+; }

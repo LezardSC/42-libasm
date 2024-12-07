@@ -9,6 +9,7 @@ extern void test_strcpy();
 extern void test_strcmp();
 extern void test_write();
 extern void test_read();
+extern void test_strdup();
 
 void create_test_file() {
     int fd = open("test_file.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -36,7 +37,7 @@ int main() {
     test_strcmp();
     test_write();
     test_read();
-    
+    test_strdup();
     delete_test_file();
     return 0;
 }

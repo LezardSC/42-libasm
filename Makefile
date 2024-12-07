@@ -9,6 +9,7 @@ SRC						=	ft_strlen.s \
 							ft_strcmp.s \
 							ft_write.s \
 							ft_read.s \
+							ft_strdup.s
 
 TEST_SRC				=	test.c \
 							test_strcmp.c \
@@ -16,6 +17,7 @@ TEST_SRC				=	test.c \
 							test_strcpy.c \
 							test_write.c \
 							test_read.c \
+							test_strdup.c
 
 TEST_EXEC				=	test
 
@@ -42,7 +44,7 @@ $(BUILD_DIR)%.o :		$(TEST_DIR)%.c
 
 .PHONY: all
 all: clear
-	$(MAKE) $(NAME) 
+	$(MAKE) $(NAME)
 
 .PHONY: clear
 clear:
@@ -53,7 +55,7 @@ $(NAME):				 $(OBJECTS)
 						ar rcs $(NAME) $(OBJECTS)
 
 .PHONY: clean
-clean:					
+clean:
 						@${RM} $(BUILD_DIR)
 
 .PHONY: fclean

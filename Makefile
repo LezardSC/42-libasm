@@ -9,7 +9,8 @@ SRC						=	ft_strlen.s \
 							ft_strcmp.s \
 							ft_write.s \
 							ft_read.s \
-							ft_strdup.s
+							ft_strdup.s \
+							ft_atoi_base.s \
 
 TEST_SRC				=	test.c \
 							test_strcmp.c \
@@ -17,7 +18,8 @@ TEST_SRC				=	test.c \
 							test_strcpy.c \
 							test_write.c \
 							test_read.c \
-							test_strdup.c
+							test_strdup.c \
+							test_atoi_base.c \
 
 TEST_EXEC				=	test
 

@@ -16,6 +16,7 @@ void test_atoi_base();
 void test_list_push_front(list_t **begin_list);
 void test_list_size();
 void test_list_sort();
+void test_list_remove_if();
 
 static void delete_test_file();
 static void create_test_file();
@@ -34,6 +35,7 @@ int main() {
     test_list_push_front(&list);
     test_list_size();
     test_list_sort();
+    test_list_remove_if();
     delete_test_file();
     return 0;
 }

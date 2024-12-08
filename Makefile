@@ -3,6 +3,7 @@ NAME					= libasm.a
 BUILD_DIR				=	build/
 DIR						=	src/
 TEST_DIR				=	tests/
+INC_DIR					=	include/
 
 SRC						=	ft_strlen.s \
 							ft_strcpy.s \
@@ -11,6 +12,9 @@ SRC						=	ft_strlen.s \
 							ft_read.s \
 							ft_strdup.s \
 							ft_atoi_base.s \
+							ft_list.s \
+							ft_list_create_elem.s \
+							ft_list_push_front.s \
 
 TEST_SRC				=	test.c \
 							test_strcmp.c \
@@ -20,18 +24,19 @@ TEST_SRC				=	test.c \
 							test_read.c \
 							test_strdup.c \
 							test_atoi_base.c \
+							test_list_push_front.c \
 
 TEST_EXEC				=	test
 
 CC						=	gcc
 CFLAGS					=	-Wall -Wextra -Werror
-
+IFLAGS					=	-I $(INC_DIR)
 
 OBJECTS					= $(patsubst %.s, $(BUILD_DIR)%.o, $(SRC))
 TEST_OBJECTS 			= $(patsubst %.c, $(BUILD_DIR)%.o, $(TEST_SRC))
 
 ASM						= nasm
-ASMFLAGS				= -f elf64
+ASMFLAGS				= -f elf64 -i $(DIR)
 
 RM						= rm -rf
 CLEAR					= clear
@@ -42,7 +47,7 @@ $(BUILD_DIR)%.o :		$(DIR)%.s Makefile
 
 $(BUILD_DIR)%.o :		$(TEST_DIR)%.c
 						@mkdir -p $(shell dirname $@)
-						$(CC) $(CFLAGS) -c $< -o $@
+						$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 .PHONY: all
 all: clear

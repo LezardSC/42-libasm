@@ -1,12 +1,15 @@
+#include "list.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>  // Include for strcmp
 
 // Declare your custom function
-extern void ft_list_push_front(t_list **begin_list, void *data);
+extern void ft_list_push_front(list_t **begin_list, void *data);
 
 // Helper function to print the list (for debugging purposes)
-void print_list(t_list *list) {
+void print_list_t(list_t *list) {
     while (list) {
         if (list->data)
             printf("%s -> ", (char *)list->data);
@@ -18,9 +21,9 @@ void print_list(t_list *list) {
 }
 
 // Helper function to free the list
-void free_list(t_list **list) {
-    t_list *current = *list;
-    t_list *next;
+void free_list(list_t **list) {
+    list_t *current = *list;
+    list_t *next;
 
     while (current) {
         next = current->next;
@@ -32,29 +35,24 @@ void free_list(t_list **list) {
 }
 
 // Test function
-void test_ft_list_push_front(t_list **list) {
-    printf("Running tests for ft_list_push_front...\n");
+void test_list_push_front(list_t **list) {
 
     ft_list_push_front(list, "First");
-    assert(*list != NULL && (*list)->data == "First" && (*list)->next == NULL);
-    printf("\033[1;32mPASS\033[0m: Added to empty list.\n");
+    assert(*list != NULL && strcmp((*list)->data, "First") == 0 && (*list)->next == NULL);
 
     ft_list_push_front(list, "Second");
-    assert(*list != NULL && (*list)->data == "Second" && (*list)->next != NULL);
-    assert((*list)->next->data == "First" && (*list)->next->next == NULL);
-    printf("\033[1;32mPASS\033[0m: Added to list with one element.\n");
+    assert(*list != NULL && strcmp((*list)->data, "Second") == 0 && (*list)->next != NULL);
+    assert(strcmp((*list)->next->data, "First") == 0 && (*list)->next->next == NULL);
 
     ft_list_push_front(list, "Third");
-    assert(*list != NULL && (*list)->data == "Third" && (*list)->next != NULL);
-    assert((*list)->next->data == "Second" && (*list)->next->next != NULL);
-    assert((*list)->next->next->data == "First" && (*list)->next->next->next == NULL);
-    printf("\033[1;32mPASS\033[0m: Added multiple elements.\n");
+    assert(*list != NULL && strcmp((*list)->data, "Third") == 0 && (*list)->next != NULL);
+    assert(strcmp((*list)->next->data, "Second") == 0 && (*list)->next->next != NULL);
+    assert(strcmp((*list)->next->next->data, "First") == 0 && (*list)->next->next->next == NULL);
 
     ft_list_push_front(list, NULL);
     assert(*list != NULL && (*list)->data == NULL && (*list)->next != NULL);
-    assert((*list)->next->data == "Third");
-    printf("\033[1;32mPASS\033[0m: Added NULL data.\n");
+    assert(strcmp((*list)->next->data, "Third") == 0);
 
     free_list(list);
-    printf("\033[1;32mAll tests passed for ft_list_push_front!\033[0m\n");
+    printf("\033[1;32mPASS: All tests passed for ft_list_push_front!\033[0m\n");
 }

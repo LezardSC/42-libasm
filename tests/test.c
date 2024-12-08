@@ -4,6 +4,11 @@
 #include <fcntl.h>
 #include <string.h>
 
+typedef struct s_list {
+    void *data;
+    struct s_list *next;
+} t_list;
+
 extern void test_strlen();
 extern void test_strcpy();
 extern void test_strcmp();
@@ -11,6 +16,7 @@ extern void test_write();
 extern void test_read();
 extern void test_strdup();
 extern void test_atoi_base();
+extern void test_list_push_front();
 
 void create_test_file() {
     int fd = open("test_file.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -31,6 +37,8 @@ void delete_test_file() {
 }
 
 int main() {
+    t_list *list = NULL;
+
     create_test_file();
     
     test_strlen();
@@ -40,6 +48,7 @@ int main() {
     test_read();
     test_strdup();
     test_atoi_base();
+    test_ft_list_push_front(&list);
     delete_test_file();
     return 0;
 }

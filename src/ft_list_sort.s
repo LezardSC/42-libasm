@@ -46,6 +46,8 @@ ft_list_sort:
     push r13 ; updated
     push r14 ; int (*cmp)(void *, void *)
 
+    cmp rsi, 0
+    je _ft_list_sort_return
     mov rbx, [rdi]
     cmp rbx, 0
     je _ft_list_sort_return

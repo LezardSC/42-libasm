@@ -15,6 +15,7 @@ SRC						=	ft_strlen.s \
 							ft_list.s \
 							ft_list_create_elem.s \
 							ft_list_push_front.s \
+							ft_list_size.s \
 
 TEST_SRC				=	test.c \
 							test_strcmp.c \
@@ -25,6 +26,7 @@ TEST_SRC				=	test.c \
 							test_strdup.c \
 							test_atoi_base.c \
 							test_list_push_front.c \
+							test_list_size.c \
 
 TEST_EXEC				=	test
 

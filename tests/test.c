@@ -14,6 +14,7 @@ void test_read();
 void test_strdup();
 void test_atoi_base();
 void test_list_push_front(list_t **begin_list);
+void test_list_size();
 
 static void delete_test_file();
 static void create_test_file();
@@ -30,6 +31,7 @@ int main() {
     test_strdup();
     test_atoi_base();
     test_list_push_front(&list);
+    test_list_size();
     delete_test_file();
     return 0;
 }

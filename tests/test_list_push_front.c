@@ -64,5 +64,5 @@ void test_list_push_front(list_t **list) {
     }
 
     free_list(list);
-    printf("\033[1;32mPASS: All tests passed for ft_list_push_front!\033[0m\n");
+    printf("\033[1;32mPASS: All ft_list_push_front tests passed!\033[0m\n");
 }

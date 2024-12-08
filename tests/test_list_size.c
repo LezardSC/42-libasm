@@ -41,5 +41,5 @@ void test_list_size() {
         return;
     }
 
-    printf("\033[1;32mPASS: All tests passed for ft_list_size!\033[0m\n");
+    printf("\033[1;32mPASS: All ft_list_size tests passed!\033[0m\n");
 }

@@ -1,5 +1,5 @@
 NAME					= 	libasm.a
-BONUS_NAME				=	libasm_bonus.a
+NAME_BONUS				=	libasm_bonus.a
 
 BUILD_DIR				=	build/
 DIR						=	src/
@@ -46,27 +46,38 @@ CFLAGS					=	-Wall -Wextra -Werror
 IFLAGS					=	-I $(INC_DIR)
 
 OBJECTS					= $(patsubst %.s, $(BUILD_DIR)%.o, $(SRC))
+DEPS					= $(patsubst %.s, $(BUILD_DIR)%.o.d, $(SRC))
 TEST_OBJECTS 			= $(patsubst %.c, $(BUILD_DIR)%.o, $(TEST_SRC))
 OBJECTS_BONUS			= $(patsubst %.s, $(BUILD_DIR)%.o, $(SRC_BONUS))
-TEST_OBJECTS_BONUS 		= $(patsubst %.c, $(BUILD_DIR)%.o, $(TEST_SRC_BONUS))
+DEPS_BONUS				= $(patsubst %.s, $(BUILD_DIR)%.o.d, $(SRC_BONUS))
+TEST_OBJECTS_BONUS 		= $(patsubst %.c, $(BUILD_DIR)%_bonus.o, $(TEST_SRC_BONUS))
+TEST_OBJECTS_BONUS 		+= $(patsubst %.c, $(BUILD_DIR)%_bonus.o, $(TEST_SRC))
 
 ASM						= nasm
-ASMFLAGS				= -f elf64 -i $(DIR)
+ASMFLAGS				= -f elf64 -MD -MP -i $(DIR)
+ASMFLAGS_BONUS			= -f elf64 -MD -MP -i $(DIR) -i $(BONUS_DIR)
 
 RM						= rm -rf
 CLEAR					= clear
 
+-include $(DEPS) 
 $(BUILD_DIR)%.o :		$(DIR)%.s Makefile
 						@mkdir -p $(shell dirname $@)
 						$(ASM) $(ASMFLAGS) $< -o $@
 
+-include $(DEPS_BONUS)
 $(BUILD_DIR)%.o :		$(BONUS_DIR)%.s Makefile
 						@mkdir -p $(shell dirname $@)
-						$(ASM) $(ASMFLAGS) $< -o $@
+						$(ASM) $(ASMFLAGS_BONUS) $< -o $@
 
 $(BUILD_DIR)%.o :		$(TEST_DIR)%.c
 						@mkdir -p $(shell dirname $@)
 						$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+
+$(BUILD_DIR)%_bonus.o :		$(TEST_DIR)%.c
+						@mkdir -p $(shell dirname $@)
+						$(CC) $(CFLAGS) -DBONUS $(IFLAGS) -c $< -o $@
+
 
 .PHONY: all
 all: clear
@@ -105,5 +116,5 @@ test: 					$(NAME) $(TEST_OBJECTS)
 						$(CC) $(CFLAGS) -o $(TEST_EXEC) $(TEST_OBJECTS) $(NAME)
 
 .PHONY: test_bonus
-test_bonus:				$(NAME_BONUS) $(TEST_OBJECTS) $(TEST_OBJECTS_BONUS)
-						$(CC) $(CFLAGS) -DBONUS -o $(TEST_EXEC_BONUS) $(TEST_OBJECTS) $(TEST_OBJECTS_BONUS) $(NAME_BONUS)
+test_bonus:				$(NAME_BONUS) $(TEST_OBJECTS_BONUS)
+						$(CC) $(CFLAGS) -o $(TEST_EXEC_BONUS) $(TEST_OBJECTS_BONUS) $(NAME_BONUS)

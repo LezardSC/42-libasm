@@ -12,7 +12,7 @@ SRC						=	ft_strlen.s \
 							ft_strcmp.s \
 							ft_write.s \
 							ft_read.s \
-							ft_strdup.s \
+							ft_strdup.s
 
 SRC_BONUS				=	ft_atoi_base_bonus.s \
 							ft_list.s \
@@ -20,7 +20,7 @@ SRC_BONUS				=	ft_atoi_base_bonus.s \
 							ft_list_push_front_bonus.s \
 							ft_list_size_bonus.s \
 							ft_list_sort_bonus.s \
-							ft_list_remove_if_bonus.s \
+							ft_list_remove_if_bonus.s
 
 TEST_SRC				=	test.c \
 							test_strcmp.c \
@@ -28,7 +28,7 @@ TEST_SRC				=	test.c \
 							test_strcpy.c \
 							test_write.c \
 							test_read.c \
-							test_strdup.c \
+							test_strdup.c
 
 
 TEST_SRC_BONUS			=	test_atoi_base.c \
@@ -60,7 +60,11 @@ ASMFLAGS_BONUS			= -f elf64 -MD -MP -i $(DIR) -i $(BONUS_DIR)
 RM						= rm -rf
 CLEAR					= clear
 
--include $(DEPS) 
+.PHONY: all
+all: clear
+	$(MAKE) $(NAME)
+
+-include $(DEPS)
 $(BUILD_DIR)%.o :		$(DIR)%.s Makefile
 						@mkdir -p $(shell dirname $@)
 						$(ASM) $(ASMFLAGS) $< -o $@
@@ -78,10 +82,6 @@ $(BUILD_DIR)%_bonus.o :		$(TEST_DIR)%.c
 						@mkdir -p $(shell dirname $@)
 						$(CC) $(CFLAGS) -DBONUS $(IFLAGS) -c $< -o $@
 
-
-.PHONY: all
-all: clear
-	$(MAKE) $(NAME)
 
 .PHONY: bonus
 bonus: clear $(NAME_BONUS)

@@ -12,17 +12,18 @@ void test_strcmp();
 void test_write();
 void test_read();
 void test_strdup();
+#ifdef BONUS
 void test_atoi_base();
 void test_list_push_front(list_t **begin_list);
 void test_list_size();
 void test_list_sort();
 void test_list_remove_if();
+#endif
 
 static void delete_test_file();
 static void create_test_file();
 
 int main() {
-    list_t *list = NULL;
     create_test_file();
 
     test_strlen();
@@ -31,11 +32,16 @@ int main() {
     test_write();
     test_read();
     test_strdup();
+
+    #ifdef BONUS
+    list_t *list = NULL;
+    
     test_atoi_base();
     test_list_push_front(&list);
     test_list_size();
     test_list_sort();
     test_list_remove_if();
+    #endif
     delete_test_file();
     return 0;
 }

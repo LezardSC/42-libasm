@@ -14,7 +14,7 @@ section .text
 ;
 ; 	new_elem = ft_create_elem(data);
 ;   if (elem == NULL) {
-;
+;       return;
 ;   }
 ; 	new_elem->next = begin_list[0];
 ; 	begin_list[0] = new_elem;
@@ -33,6 +33,8 @@ ft_list_push_front:
     mov rdx, [rcx] ; begin_list[0]
     mov [rax + LIST_T_NEXT_OFFSET], rdx ; new_elem->next = begin_list[0]
     mov [rcx], rax
+    ret
 
     _ft_list_push_front_return:
+        pop rdi
         ret

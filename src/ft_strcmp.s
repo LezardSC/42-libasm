@@ -6,13 +6,13 @@ ft_strcmp:
 
 ; rdi first, rsi second
 loop_start:
-    mov r8b, byte [rdi] ; current char of arg1
-    mov r9b, byte [rsi] ; current char of arg2
+    mov dl, byte [rdi] ; current char of arg1
+    mov cl, byte [rsi] ; current char of arg2
     
-    cmp r8b, 0 ; while *arg1 != null
+    test dl, dl ; while *arg1 != null
     je loop_end
 
-    cmp r8b, r9b ; compare char
+    cmp dl, cl ; compare char
     jne loop_end ; if different exit the loop
 
     inc rdi
@@ -20,8 +20,8 @@ loop_start:
     jmp loop_start
 
 loop_end:
-    movzx rax, r8b
-    movzx rdx, r9b
+    movzx rax, dl ; movzx move smaller registers into bigger ones
+    movzx rdx, cl
     sub rax, rdx
     ret
 

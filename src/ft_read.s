@@ -13,8 +13,8 @@ ft_read:
         ret
 error:
     neg rax
-	mov ecx, eax
+	mov edx, eax
 	call __errno_location wrt ..plt
-	mov dword [rax], ecx
+	mov dword [rax], edx
 	mov rax, -1
 	ret

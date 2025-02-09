@@ -2,13 +2,12 @@ global ft_strlen
 
 section .text
 ft_strlen:
-    mov rcx, rdi
     mov rax, 0
 
     jmp loop_start
 
 loop_start:
-    mov sil, byte [rcx + rax]
+    mov sil, byte [rdi + rax]
     cmp sil, 0
     je loop_end
 

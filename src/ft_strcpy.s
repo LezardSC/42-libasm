@@ -1,33 +1,32 @@
 global ft_strcpy
 
 section .text
+; char ft_strcpy(char *dest, char *src);
 ft_strcpy:
-    mov rax, rdi
+    test rdi, rdi
+    je ret_null
+    test rsi, rsi
+    je ret_null
 
-    cmp rdi, 0
-    je if_null
-    cmp rsi, 0
-    je if_null
+    mov rax, rdi
 
     jmp loop_start
 
 ; rdi first, rsi second
 loop_start:
-    mov r8b, byte [rsi]
-    cmp r8b, 0
+    mov dh, byte [rsi]
+    test dh, dh
     je loop_end
 
-
-    mov r9, [rsi]
-    mov [rdi], r9
-    inc rdi
-    inc rsi
+    mov [rdi], dh
+    inc rdi ; dest pointer
+    inc rsi ; src pointer
     jmp loop_start
 
 loop_end:
-    mov [rdi], r8b
+    mov [rdi], dh
     ret
 
-if_null:
-    mov rax, 0
+ret_null:
+    xor rax, rax
     ret

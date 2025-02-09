@@ -7,33 +7,6 @@ section .text
 
     extern free
 
-; void ft_list_remove_if(list_t **begin_list, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *)) {
-;     list_t *head_list;
-;     list_t *previous;
-;     list_t *elem_to_delete;
-;
-;     if (begin_list == NULL || *begin_list == NULL) {
-;       return ;
-;     }
-;     head_list = *begin_list;
-;     previous = head_list;
-;     while (previous->next != NULL) {
-;         if (cmp(previous->next->data, data_ref) == 0) {
-;             elem_to_delete = previous->next;
-;             previous->next = elem_to_delete->next;
-;             (*free_fct)(elem_to_delete->data);
-;             free(elem_to_delete);
-;         } else {
-;             previous = previous->next;
-;         }
-;     }
-;     if (cmp(head_list->data, data_ref) == 0) {
-;         elem_to_delete = head_list;
-;         *begin_list = elem_to_delete->next;
-;         (*free_fct)(elem_to_delete->data);
-;         free(elem_to_delete);
-;     }
-; }
 
 ; void ft_list_remove_if(list_t **begin_list, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *)) {
 ft_list_remove_if:
@@ -115,3 +88,33 @@ ft_list_free_elem:
     pop rdi
     call free wrt ..plt
     ret
+
+
+
+; void ft_list_remove_if(list_t **begin_list, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *)) {
+;     list_t *head_list;
+;     list_t *previous;
+;     list_t *elem_to_delete;
+;
+;     if (begin_list == NULL || *begin_list == NULL) {
+;       return ;
+;     }
+;     head_list = *begin_list;
+;     previous = head_list;
+;     while (previous->next != NULL) {
+;         if (cmp(previous->next->data, data_ref) == 0) {
+;             elem_to_delete = previous->next;
+;             previous->next = elem_to_delete->next;
+;             (*free_fct)(elem_to_delete->data);
+;             free(elem_to_delete);
+;         } else {
+;             previous = previous->next;
+;         }
+;     }
+;     if (cmp(head_list->data, data_ref) == 0) {
+;         elem_to_delete = head_list;
+;         *begin_list = elem_to_delete->next;
+;         (*free_fct)(elem_to_delete->data);
+;         free(elem_to_delete);
+;     }
+; }

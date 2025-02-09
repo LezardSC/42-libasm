@@ -125,9 +125,9 @@ ft_atoi_base:
     mov rbx, rdi
     mov r12, rsi
 
-    cmp rdi, 0
+    test rdi, rdi
     je _ft_atoi_base_return
-    cmp rsi, 0
+    test rsi, rsi
     je _ft_atoi_base_return
 
     mov rdi, r12
@@ -232,7 +232,7 @@ get_sign:
     _get_sign_loop_start:
         mov dil, byte [rbx]
         call ft_is_sign
-        cmp rax, 0
+        test rax, rax
         je _get_signs_return
         cmp byte [rbx], '-'
         jne _get_sign_inc_str
@@ -257,9 +257,9 @@ skip_spaces:
     _skip_spaces_loop_start:
         mov dil, byte [rbx]
         call ft_is_space
-        cmp rax, 0
+        test rax, rax
         je _skip_spaces_return
-        inc rbx;
+        inc rbx
         jmp _skip_spaces_loop_start
 
     _skip_spaces_return:
@@ -277,7 +277,7 @@ skip_signs:
     _skip_signs_loop_start:
         mov dil, byte [rbx]
         call ft_is_sign
-        cmp rax, 0
+        test rax, rax
         je _skip_signs_return
         inc rbx
         jmp _skip_signs_loop_start

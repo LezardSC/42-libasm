@@ -21,3 +21,13 @@ ft_list_create_elem:
 
     _ft_list_create_elem_return:
         ret
+
+
+; list_t *ft_list_create_elem(void *data) {
+;     list_t *new_elem = malloc(sizeof(list_t));
+;     if (!new_elem)
+;         return NULL;
+;     new_elem->data = data;
+;     new_elem->next = NULL;
+;     return new_elem;
+; }

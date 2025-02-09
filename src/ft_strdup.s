@@ -22,4 +22,5 @@ ft_strdup:
 
 
 .malloc_error:
+	pop rdi
 	ret

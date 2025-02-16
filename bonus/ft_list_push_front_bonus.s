@@ -14,7 +14,7 @@ ft_list_push_front:
 
     call ft_list_create_elem
     test rax, rax
-    je _ft_list_push_front_return
+    jz _ft_list_push_front_return
 
     pop rcx ; begin_list
     mov rdx, [rcx] ; begin_list[0]

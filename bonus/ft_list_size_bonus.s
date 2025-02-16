@@ -11,7 +11,7 @@ ft_list_size:
 
     _ft_list_size_loop_start:
         test rdi, rdi
-        je _ft_list_size_return
+        jz _ft_list_size_return
         inc rax
         mov rdi, [rdi + LIST_T_NEXT_OFFSET]
         jmp _ft_list_size_loop_start

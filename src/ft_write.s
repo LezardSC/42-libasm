@@ -12,9 +12,10 @@ ft_write:
         
         ret
 error:
-    neg rax
-	mov edx, eax
+    neg eax
+	push rax
 	call __errno_location wrt ..plt
-	mov dword [rax], edx
+	pop rdi
+	mov dword [rax], edi
 	mov rax, -1
 	ret

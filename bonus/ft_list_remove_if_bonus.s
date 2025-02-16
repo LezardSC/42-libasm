@@ -16,10 +16,10 @@ ft_list_remove_if:
     push r14 ; current
     push r15 ; free_fct
 
-    cmp rdi, 0
-    je _ft_list_remove_if_return
+    test rdi, rdi
+    jz _ft_list_remove_if_return
     cmp qword [rdi], 0
-    je _ft_list_remove_if_return
+    jz _ft_list_remove_if_return
 
     push rdi ; begin_list
     mov rbx, [rdi]
@@ -29,8 +29,8 @@ ft_list_remove_if:
 
     _ft_list_remove_if_loop_start:
         mov r14, [rbx + LIST_T_NEXT_OFFSET]
-        cmp r14, 0
-        je _ft_list_remove_if_head
+        test r14, r14
+        jz _ft_list_remove_if_head
 
         mov rdi, r14
         add rdi, LIST_T_DATA_OFFSET

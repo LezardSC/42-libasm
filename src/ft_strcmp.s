@@ -10,7 +10,7 @@ loop_start:
     mov cl, byte [rsi] ; current char of arg2
     
     test dl, dl ; while *arg1 != null
-    je loop_end
+    jz loop_end
 
     cmp dl, cl ; compare char
     jne loop_end ; if different exit the loop

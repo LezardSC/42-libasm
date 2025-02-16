@@ -14,8 +14,8 @@ ft_list_create_elem:
     mov rdi, LIST_T_SIZE
     call malloc wrt ..plt
     pop rdi
-    cmp rax, 0
-    je _ft_list_create_elem_return
+    test rax, rax
+    jz _ft_list_create_elem_return
     mov qword [rax + LIST_T_DATA_OFFSET], rdi
     mov qword [rax + LIST_T_NEXT_OFFSET], 0
 

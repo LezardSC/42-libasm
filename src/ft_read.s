@@ -4,7 +4,7 @@ extern __errno_location
 
 section .text
 ft_read:
-		mov rax, 0 ;System call number for read
+		xor rax, rax ;System call number for read
 		syscall ; Make the system call
 
 		test rax, rax
@@ -12,9 +12,10 @@ ft_read:
         
         ret
 error:
-    neg rax
-	mov edx, eax
+    neg eax
+	push rax
 	call __errno_location wrt ..plt
-	mov dword [rax], edx
+	pop rdi
+	mov dword [rax], edi
 	mov rax, -1
 	ret

@@ -13,16 +13,16 @@ ft_list_sort:
     push r14 ; int (*cmp)(void *, void *)
 
     test rsi, rsi
-    je _ft_list_sort_return
+    jz _ft_list_sort_return
     mov rbx, [rdi]
     test rbx, rbx
-    je _ft_list_sort_return
+    jz _ft_list_sort_return
     mov r13, 1
     mov r14, rsi
 
     _ft_list_sort_main_loop_start:
-        cmp r13, 0
-        je _ft_list_sort_return
+        test r13, r13
+        jz _ft_list_sort_return
 
         xor r13, r13
         mov r12, rbx
